@@ -28,7 +28,7 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "ruler":{
+    "rules":{
       "react/react-in-jsx-scope": "off",
     },
     "extends": [
