@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -7,6 +8,7 @@ import { initializeApp } from "firebase/app";
 const firebaseConfig = {
   apiKey: "AIzaSyAfwcdQ9PAfdTdhV6y39CoXVZZ8W62aYfI",
   authDomain: "good2know-7ba36.firebaseapp.com",
+  databaseURL: "https://good2know-7ba36-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "good2know-7ba36",
   storageBucket: "good2know-7ba36.appspot.com",
   messagingSenderId: "413371272456",
@@ -14,4 +16,12 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const initializeFirebase = () => initializeApp(firebaseConfig);
+
+export const initializeFirebase = () => {
+  const app = initializeApp(firebaseConfig)
+  const database = getDatabase(app)
+  return {
+    app,
+    database
+  }
+}

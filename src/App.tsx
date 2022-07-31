@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import PrivateRoute from './utils/hocs/PrivateRoute'
 
 function App() {
   return (
@@ -23,4 +24,6 @@ function App() {
   );
 }
 
-export default App;
+
+
+export default PrivateRoute(App);

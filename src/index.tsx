@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import Login from './screens/Login/Index';
+import CreatePage from './screens/Create';
+import ListPage from './screens/List';
 import reportWebVitals from './reportWebVitals';
 import {initializeFirebase} from './config/firebase'
 
@@ -12,7 +14,9 @@ import {
   Route,
 } from "react-router-dom";
 
-const app = initializeFirebase();
+
+const {app,database} = initializeFirebase();
+
 
 
 
@@ -24,7 +28,9 @@ root.render(
       <Routes>
         <Route path="/" element={<App />}/>
         <Route path="/login" element={<Login />}/>
-        <Route path="profile" element={'hola'} />
+        <Route path="/profile" element={'hola'} />
+        <Route path="/create" element={<CreatePage />}/>
+        <Route path="/list" element={<ListPage />}/>
       </Routes>
     </BrowserRouter>
 );

@@ -3,24 +3,19 @@ import Card from '@mui/material/Card';
 import { Button } from "@mui/material";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-
-    const [email,setEmail] = useState<string | null>(null)
 
     const provider = new GoogleAuthProvider();
 
     const auth = getAuth();
+    const navigate = useNavigate();
 
     const handleLogin = () => {
         signInWithPopup(auth, provider)
-        .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential?.accessToken;
-            // The signed-in user info.
-            const user = result.user;
-            setEmail(user?.email)
+        .then(() => {
+            navigate('/',{replace:true})
         }).catch((error) => {
             // Handle Errors here.
             const errorCode = error.code;
@@ -30,8 +25,19 @@ const Login = () => {
             // The AuthCredential type that was used.
             const credential = GoogleAuthProvider.credentialFromError(error);
             // ...
+            console.log({
+                errorCode,
+                errorMessage,
+                email,
+                credential
+            })
         });
     }
+
+
+    auth.onAuthStateChanged(() =>{
+        console.log(auth.currentUser)
+    })
 
     return(
         <div style={{
@@ -53,13 +59,14 @@ const Login = () => {
                 }}
             >
                 <>
-                Bienvenido {email},
+                Bienvenido, {auth.currentUser?.displayName}
                 <Button
                     sx={{
                         width:'50%'
                     }}
                     onClick={handleLogin}
                 >Login</Button>
+                
                 </>
             </Card>
         </div>
